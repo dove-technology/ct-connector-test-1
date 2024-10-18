@@ -1,0 +1,28 @@
+{
+    "name": "test-service",
+    "description": "",
+    "version": "1.0.0",
+    "main": "index.js",
+    "private": true,
+    "scripts": {
+      "start": "node build/index.js",
+      "build": "rimraf ./build && tsc",
+      "gcp-build": "tsc",
+      "start:dev": "concurrently -k \"tsc --watch\" \"nodemon -q build/index.js\""
+    },
+    "author": "",
+    "devDependencies": {
+      "@tsconfig/recommended": "^1.0.3",
+      "@types/express": "^5.0.0",
+      "@types/node": "^22.7.5",
+      "concurrently": "^9.0.1",
+      "nodemon": "^3.0.1",
+      "rimraf": "^6.0.1",
+      "typescript": "^5.6.3"
+    },
+    "dependencies": {
+      "dotenv": "^16.3.1",
+      "express": "^4.18.2"
+    }
+  }
+  
