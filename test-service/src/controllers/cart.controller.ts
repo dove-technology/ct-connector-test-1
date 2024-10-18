@@ -38,14 +38,18 @@ const create = async (resource: Resource) => {
     //   // Work with the product
     // }
 
-
+    const setCountryAction: UpdateAction = {
+      action: 'setCountry',
+      country: 'GB',
+    };
 
     // Create the UpdateActions Object to return it to the client
     const updateAction: UpdateAction = {
       action: 'recalculate',
       updateProductData: false,
     };
-
+    
+    updateActions.push(setCountryAction);
     updateActions.push(updateAction);
 
     return { statusCode: 200, actions: updateActions };
