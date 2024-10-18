@@ -4,6 +4,8 @@ import { createApiRoot } from '../client/create.client';
 import CustomError from '../errors/custom.error';
 import { Resource } from '../interfaces/resource.interface';
 
+import { logger } from '../utils/logger.utils';
+
 /**
  * Handle the create action
  *
@@ -23,16 +25,20 @@ const create = async (resource: Resource) => {
       productId = cartDraft.obj.lineItems[0].productId;
     }
 
-    // Fetch the product with the ID
-    if (productId) {
-      await createApiRoot()
-        .products()
-        .withId({ ID: productId })
-        .get()
-        .execute();
+    logger.warn(`In CartController...`);
 
-      // Work with the product
-    }
+    // Fetch the product with the ID
+    // if (productId) {
+    //   await createApiRoot()
+    //     .products()
+    //     .withId({ ID: productId })
+    //     .get()
+    //     .execute();
+
+    //   // Work with the product
+    // }
+
+
 
     // Create the UpdateActions Object to return it to the client
     const updateAction: UpdateAction = {
