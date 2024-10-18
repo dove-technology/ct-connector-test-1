@@ -1,22 +1,33 @@
-import express, { Request, Response } from "express";
-import dotenv from "dotenv";
-
+import * as dotenv from 'dotenv';
 dotenv.config();
 
-const app = express();
+import express, { Express } from 'express';
+import bodyParser from 'body-parser';
 
-app.get("/", (req: Request, res: Response) => {
-  res.status(200).send({ message: "root GET responded..." });
-});
+// Import routes
+import ServiceRoutes from './routes/service.route';
 
-app.post("/", (req: Request, res: Response) => {
-  console.dir(req.body);
-  res.status(200).send({ message: "root POST responded..." });
-});
+import { readConfiguration } from './utils/config.utils';
+import { errorMiddleware } from './middleware/error.middleware';
+import CustomError from './errors/custom.error';
 
-app.post("/test-service", (req: Request, res: Response) => {
-  console.dir(req.body);
-  res.status(200).send({ message: "test-service POST responded..." });
+// Read env variables
+readConfiguration();
+
+// Create the express app
+const app: Express = express();
+app.disable('x-powered-by');
+
+// Define configurations
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Define routes
+app.use('/service', ServiceRoutes);
+app.use('*', () => {
+  throw new CustomError(404, 'Path not found.');
 });
+// Global error handler
+app.use(errorMiddleware);
 
 export default app;
