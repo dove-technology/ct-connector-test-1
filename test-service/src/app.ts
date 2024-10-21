@@ -22,8 +22,14 @@ app.disable('x-powered-by');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// root endpoint for testing
+// app.get('/', (req, res) => {  
+//   res.status(200).send({ message: 'root GET updated successfully' });
+// });
+
 // Define routes
-app.use('/service', ServiceRoutes);
+app.use('/test-service', ServiceRoutes);
+
 app.use('*', () => {
   throw new CustomError(404, 'Path not found.');
 });
