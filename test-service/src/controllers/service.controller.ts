@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { apiSuccess } from '../api/success.api';
 import CustomError from '../errors/custom.error';
 import { cartController } from './cart.controller';
+import { logger } from '../utils/logger.utils';
 
 /**
  * Exposed service endpoint.
@@ -15,6 +16,8 @@ import { cartController } from './cart.controller';
 export const post = async (request: Request, response: Response) => {
   // Deserialize the action and resource from the body
   const { action, resource } = request.body;
+
+  logger.info(JSON.stringify(request.body));
 
   if (!action || !resource) {
     throw new CustomError(400, 'Bad request - Missing body parameters.');
