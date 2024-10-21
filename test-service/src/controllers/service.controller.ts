@@ -28,6 +28,7 @@ export const post = async (request: Request, response: Response) => {
   switch (resource.typeId) {
     case 'cart':
       try {
+        logger.info("routing to cart controller...");
         const data = await cartController(action, resource);
 
         if (data && data.statusCode === 200) {
@@ -40,6 +41,7 @@ export const post = async (request: Request, response: Response) => {
           JSON.stringify(data)
         );
       } catch (error) {
+        logger.info("in service controller error catcher...");
         if (error instanceof Error) {
           throw new CustomError(500, error.message);
         }

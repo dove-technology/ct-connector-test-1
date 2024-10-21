@@ -25,7 +25,7 @@ const create = async (resource: Resource) => {
       productId = cartDraft.obj.lineItems[0].productId;
     }
 
-    logger.warn(`In CartController...`);
+    logger.warn(`In CartController create function...`);
 
     // Fetch the product with the ID
     // if (productId) {
@@ -48,7 +48,7 @@ const create = async (resource: Resource) => {
       action: 'recalculate',
       updateProductData: false,
     };
-    
+
     updateActions.push(setCountryAction);
     updateActions.push(updateAction);
 
@@ -78,10 +78,14 @@ const create = async (resource: Resource) => {
 export const cartController = async (action: string, resource: Resource) => {
   switch (action) {
     case 'Create': {
+      logger.warn(`CartController create function about to be called...`);
+
       const data = create(resource);
       return data;
     }
     case 'Update':
+      logger.warn(`CartController update function about to be called...`);
+
       break;
 
     default:
