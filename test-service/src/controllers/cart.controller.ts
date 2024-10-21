@@ -66,7 +66,36 @@ const create = async (resource: Resource) => {
 };
 
 // Controller for update actions
-// const update = (resource: Resource) => {};
+const update = async (resource: Resource) => {
+  try {
+    const updateActions: Array<UpdateAction> = [];
+
+    logger.warn(`In CartController update function...`);
+
+    const setCountryAction: UpdateAction = {
+      action: 'setCountry',
+      country: 'GB',
+    };
+
+    // Create the UpdateActions Object to return it to the client
+    const updateAction: UpdateAction = {
+      action: 'recalculate',
+      updateProductData: false,
+    };
+
+    updateActions.push(setCountryAction);
+    updateActions.push(updateAction);
+
+    return { statusCode: 200, actions: updateActions };
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new CustomError(
+        400,
+        `Internal server error on CartController::Update: ${error.stack}`
+      );
+    }
+  }
+};
 
 /**
  * Handle the cart controller according to the action
@@ -80,13 +109,14 @@ export const cartController = async (action: string, resource: Resource) => {
     case 'Create': {
       logger.warn(`CartController create function about to be called...`);
 
-      const data = create(resource);
+      const data = await create(resource);
       return data;
     }
     case 'Update':
       logger.warn(`CartController update function about to be called...`);
 
-      break;
+      const data = await update(resource);
+      return data;
 
     default:
       throw new CustomError(
