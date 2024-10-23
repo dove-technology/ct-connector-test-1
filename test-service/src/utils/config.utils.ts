@@ -1,6 +1,7 @@
 import CustomError from '../errors/custom.error';
 import envValidators from '../validators/env.validators';
 import { getValidateMessages } from '../validators/helpers.validators';
+import { logger } from './logger.utils';
 
 /**
  * Read the configuration env vars
@@ -16,6 +17,9 @@ export const readConfiguration = () => {
     scope: process.env.CTP_SCOPE,
     region: process.env.CTP_REGION as string,
   };
+
+  // hack: remove this - for short-term debugging purposes only
+  logger.warn(`Environment variables: ${JSON.stringify(envVars)}`);
 
   const validationErrors = getValidateMessages(envValidators, envVars);
 
