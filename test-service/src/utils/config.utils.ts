@@ -19,7 +19,7 @@ export const readConfiguration = () => {
   };
 
   // hack: remove this - for short-term debugging purposes only
-  logger.info(`Marker: 001`);
+  logger.info(`Marker: 002`);
   logger.warn(`Environment variables: ${JSON.stringify(envVars)}`);
 
   const validationErrors = getValidateMessages(envValidators, envVars);

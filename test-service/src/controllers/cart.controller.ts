@@ -74,7 +74,7 @@ const update = async (resource: Resource) => {
 
     const setCountryAction: UpdateAction = {
       action: 'setCountry',
-      country: 'GB',
+      country: 'US',
     };
 
     // Create the UpdateActions Object to return it to the client
